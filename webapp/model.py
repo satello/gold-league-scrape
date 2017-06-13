@@ -26,7 +26,7 @@ class Players(db.Model):
         existing_player = cls.query.filter_by(name=name).first()
 
         # adjust by weight
-        value += int(value * config["weights"][position])
+        value = int(value * config["weights"][position])
 
         if existing_player and value != existing_player.value:
             existing_player.value = value
@@ -42,7 +42,7 @@ class Players(db.Model):
             "name": self.name,
             "position": self.position,
             "value": self.value,
-            "owner": self.owner.name,
+            "owner": self.owner.name if self.owner else None,
             "cost": self.cost,
             "years": self.years
         }
