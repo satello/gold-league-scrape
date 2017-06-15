@@ -34,7 +34,13 @@ class PlayersRoutes(MethodView):
             # do not return picks
             all_players = Players.query.filter(Players.position != "PICK").order_by(Players.value.desc()).all()
 
-        return jsonify([p.as_json() for p in all_players]), 200
+        return_list = []
+        for i, p in enumerate(all_players):
+            player_dict = p.as_json()
+            player_dict["rank"] = i + 1
+            return_list.append(player_dict)
+
+        return jsonify(return_list), 200
 
 class TeamPlayers(MethodView):
 

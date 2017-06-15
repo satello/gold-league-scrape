@@ -61,3 +61,11 @@ class Owners(db.Model):
         self.cap_room = cap_room
         self.years_remaining = years_remaining
         self.spots_available = spots_available
+
+    def as_json(self):
+        return {
+            "name": self.name,
+            "cap_room": self.cap_room,
+            "years_remaining": self.years_remaining,
+            "spots_available": self.spots_available
+        }
