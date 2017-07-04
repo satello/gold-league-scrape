@@ -1,0 +1,13 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+# [START handlers]
+handlers:
+- url: /.*
+  script: start.application
+# [END handlers]
+
+env_variables:
+  SELENIUM_ENABLED: false
+  USE_MEM_DB: true

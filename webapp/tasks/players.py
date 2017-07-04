@@ -1,6 +1,7 @@
+import os
 import time
 
-from urllib.request import urlopen
+from urllib import urlopen
 from selenium import webdriver
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
@@ -9,7 +10,11 @@ from bs4 import BeautifulSoup
 
 # local
 from webapp.model import Players
+from webapp.db import mem_db
 from config import config
+
+# can use either postgres or in memory storage
+USE_MEM_DB = os.environ.get('USE_MEM_DB', True)
 
 
 def update_player_values():
@@ -67,4 +72,7 @@ def get_player_redraft_data():
         player_rank = cols[0].string
         player_bye = cols[3].string
 
-        Players.add_redraft_data(player_name, tier, player_rank, player_bye)
+        if USE_MEM_DB:
+            mem_db.add_redraft_data(player_name, tier, player_rank, player_bye)
+        else:
+            Players.add_redraft_data(player_name, tier, player_rank, player_bye)

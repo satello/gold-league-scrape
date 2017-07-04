@@ -8,15 +8,25 @@ from .api import api
 from webapp.db import db
 # from webapp.middleware import init_middleware
 
+# can use either postgres or in memory storage
+USE_MEM_DB = os.environ.get('USE_MEM_DB', True)
+
 def create_app(DB_URI=None):
     application = Flask(__name__)
 
     # DB Connection Information
-    if not DB_URI:
+    if not DB_URI and not USE_MEM_DB:
         DB_URI = os.environ.get('DB_URI', 'postgresql://localhost/goldleagueapp')
 
-    application.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
-    application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    if not USE_MEM_DB:
+        application.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+        application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+        # initialize db. any external calls to db must use application context
+        db.init_app(application)
+        # set up migration support for alembic
+        migrate = Migrate()
+        migrate.init_app(application, db)
 
     # send CORS headers for frontend
     @application.after_request
@@ -28,12 +38,6 @@ def create_app(DB_URI=None):
             if headers:
                 response.headers['Access-Control-Allow-Headers'] = headers
         return response
-
-    # initialize db. any external calls to db must use application context
-    db.init_app(application)
-    # set up migration support for alembic
-    migrate = Migrate()
-    migrate.init_app(application, db)
 
     # middleware
     # init_middleware(application)

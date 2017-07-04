@@ -1,8 +1,14 @@
+import os
+
 from flask import request, jsonify
 from flask.views import MethodView
 
 from webapp.model import Owners, Players, db
+from webapp.db import mem_db
 from config import config
+
+# can use either postgres or in memory storage
+USE_MEM_DB = os.environ.get('USE_MEM_DB', True)
 
 #
 def register_teams_routes(blueprint):
@@ -18,12 +24,18 @@ class TeamRoutes(MethodView):
 
     def get(self, owner_name=None):
         if owner_name:
-            team = Owners.query.filter_by(name=owner_name).first()
+            if USE_MEM_DB:
+                team = mem_db.fetch_owner_by_name(owner_name)
+            else:
+                team = Owners.query.filter_by(name=owner_name).first()
             if not team:
                 return jsonify(error="Unable to find team %s" % owner_name), 400
             return jsonify(team.as_json()), 200
 
-        teams = Owners.query.all()
+        if USE_MEM_DB:
+            teams = mem_db.fetch_all_owners()
+        else:
+            teams = Owners.query.all()
 
         return jsonify([team.as_json() for team in teams]), 200
 #
