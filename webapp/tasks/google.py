@@ -17,6 +17,7 @@ SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Gold League Sheet'
 GOLD_LEAGUE_SHEET_ID = '1YDb26U8rCV0ISmumHt_oa1VIEcZvEhVeC8Z9B59JoIQ'
+BIEBS_SHEET_ID = '1EA5qYoN-zeuiiyrLYYta7cGFX_zS0QFp1IpoWbozcJo'
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -110,3 +111,22 @@ def get_team_information():
 
             })
         return teams
+
+
+def get_players_dynastyfftools_cloud_safe():
+    """
+    basic cloud infastructure doesn't allow Selenium binaries necessary. Use biebs sheet as fallback
+    """
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
+    discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
+                    'version=v4')
+    service = discovery.build('sheets', 'v4', http=http,
+                              discoveryServiceUrl=discoveryUrl)
+
+    rangeName = "DynastyFFTools!A2:F"
+    result = service.spreadsheets().values().get(
+        spreadsheetId=BIEBS_SHEET_ID, range=rangeName).execute()
+    player_rows = result.get('values', [])
+
+    return player_rows
