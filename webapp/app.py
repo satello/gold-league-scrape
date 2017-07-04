@@ -6,7 +6,6 @@ from flask_migrate import Migrate
 
 from .api import api
 from webapp.db import db
-from webapp.tasks.update_player_values import update_player_values
 # from webapp.middleware import init_middleware
 
 def create_app(DB_URI=None):

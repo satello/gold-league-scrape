@@ -1,5 +1,6 @@
 import time
 
+from urllib.request import urlopen
 from selenium import webdriver
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
@@ -8,13 +9,14 @@ from bs4 import BeautifulSoup
 
 # local
 from webapp.model import Players
+from config import config
 
 
 def update_player_values():
     driver = webdriver.Chrome()
     driver.get("http://www.dynastyfftools.com/tools/players")
     # FIXME hacky. was fucking around with the below but wasn't working
-    time.sleep(10) # seconds
+    time.sleep(30) # seconds
     # try:
     #     WebDriverWait(driver, delay).until(EC.presence_of_element_located(driver.find_elements_by_class_name('playersTableHeader')))
     #     print("Page is ready!")
@@ -36,3 +38,33 @@ def update_player_values():
         value = int(player_attributes[5].string)
 
         Players.new_player_value(name, position, value)
+
+def get_player_redraft_data():
+    # webpage url
+    url = "https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php"
+
+    # get page source
+    response = urlopen(url)
+    page_source = response.read()
+    soup = BeautifulSoup(page_source, 'html.parser')
+
+    player_rows = soup.find('tbody').find_all('tr')
+
+    tier = 0
+    for row in player_rows:
+        if row.has_key('class') and row['class'][0] == 'tier-row':
+            tier += 1
+            continue
+
+        cols = row.find_all('td')
+        if len(cols) != 11:
+            continue
+
+        player_name = cols[1].find('a').string
+        if config["name_differences"].get(player_name):
+            player_name = config["name_differences"][player_name]
+
+        player_rank = cols[0].string
+        player_bye = cols[3].string
+
+        Players.add_redraft_data(player_name, tier, player_rank, player_bye)

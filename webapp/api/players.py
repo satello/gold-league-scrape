@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask.views import MethodView
 
 from webapp.model import Owners, Players, db
-from webapp.tasks.update_player_values import update_player_values
+from webapp.tasks.players import update_player_values
 from webapp.tasks.google import get_team_information, get_player_information_for_team
 from config import config
 
@@ -34,13 +34,7 @@ class PlayersRoutes(MethodView):
             # do not return picks
             all_players = Players.query.filter(Players.position != "PICK").order_by(Players.value.desc()).all()
 
-        return_list = []
-        for i, p in enumerate(all_players):
-            player_dict = p.as_json()
-            player_dict["rank"] = i + 1
-            return_list.append(player_dict)
-
-        return jsonify(return_list), 200
+        return jsonify([p.as_json() for p in all_players]), 200
 
 class TeamPlayers(MethodView):
 
@@ -51,7 +45,7 @@ class TeamPlayers(MethodView):
 
         team_players = Players.query.filter_by(owner=owner).order_by(Players.value.desc()).all()
 
-        return jsonify([p.as_json() for p in team_players]), 200
+        return jsonify(players=[p.as_json() for p in team_players]), 200
 
 
 class FreeAgentPlayers(MethodView):

@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask.views import MethodView
 
 from webapp.model import Owners, Players, db
-from webapp.tasks.update_player_values import update_player_values
+from webapp.tasks.players import update_player_values, get_player_redraft_data
 from webapp.tasks.google import get_team_information, get_player_information_for_team
 from config import config
 
@@ -15,6 +15,9 @@ def register_task_routes(blueprint):
 
     view_func = PlayerInfo.as_view('player_info')
     blueprint.add_url_rule('/update/players', strict_slashes=False, view_func=view_func, methods=['GET'])
+
+    view_func = PlayerRedraft.as_view('player_redraft')
+    blueprint.add_url_rule('/update/redraft', strict_slashes=False, view_func=view_func, methods=['GET'])
 
 class PlayerValues(MethodView):
 
@@ -85,3 +88,9 @@ class PlayerInfo(MethodView):
 
         db.session.commit()
         return jsonify('ok'), 201
+
+class PlayerRedraft(MethodView):
+
+    def get(self):
+        get_player_redraft_data()
+        return jsonify({}), 200
