@@ -30,23 +30,26 @@ def register_task_routes(blueprint):
 class PlayerValues(MethodView):
 
     def get(self):
-        selenium_enabled = os.environ.get('SELENIUM_ENABLED', False)
-        # enable selenium to get directly from source
-        if (selenium_enabled):
-            update_player_values()
-        else:
+        # print("here")
+        # selenium_enabled = os.environ.get('SELENIUM_ENABLED', False)
+        # print(selenium_enabled)
+        # # enable selenium to get directly from source
+        # if (selenium_enabled):
+        #     print("how")
+        #     update_player_values()
+        # else:
             # use calebs spreadsheet for dyntastyff values
-            players = get_players_dynastyfftools_cloud_safe()
+        players = get_players_dynastyfftools_cloud_safe()
 
-            for player_attributes in players:
-                name = player_attributes[0]
-                position = player_attributes[1]
-                value = int(player_attributes[5])
+        for player_attributes in players:
+            name = player_attributes[0]
+            position = player_attributes[1]
+            value = int(player_attributes[5])
 
-                if USE_MEM_DB:
-                    mem_db.new_player_value(name, position, value)
-                else:
-                    Players.new_player_value(name, position, value)
+            if USE_MEM_DB:
+                mem_db.new_player_value(name, position, value)
+            else:
+                Players.new_player_value(name, position, value)
 
         return jsonify("ok"), 200
 

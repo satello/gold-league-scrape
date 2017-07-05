@@ -14,5 +14,8 @@ config = {
         "A.J. Derby": "AJ Derby",
         "T.J. Logan": "TJ Logan",
         "Benjamin Watson": "Ben Watson",
+        "Desean Jackson": "DeSean Jackson",
+        "Quincy Enuwa": "Quincy Enunwa",
+        "Deandre Washington": "DeAndre Washington",
     }
 }

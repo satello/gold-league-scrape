@@ -9,6 +9,10 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
+# from oauth2client.contrib.appengine import AppAssertionCredentials
+from oauth2client.service_account import ServiceAccountCredentials
+
+
 
 
 # If modifying these scopes, delete your previously saved credentials
@@ -18,6 +22,7 @@ CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Gold League Sheet'
 GOLD_LEAGUE_SHEET_ID = '1YDb26U8rCV0ISmumHt_oa1VIEcZvEhVeC8Z9B59JoIQ'
 BIEBS_SHEET_ID = '1EA5qYoN-zeuiiyrLYYta7cGFX_zS0QFp1IpoWbozcJo'
+MY_SHEET_TEMP = '1Fj1z0A3LmAamKtqTnAzMFc-fCbzJCDRCGR2Hn8wcOoc'
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -28,23 +33,36 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'sheets.googleapis.com-python-quickstart.json')
+    # home_dir = os.path.dirname(os.path.abspath(__file__))
+    # credential_path = os.path.join(home_dir, 'static/credentials.json')
+    #
+    # store = Storage(credential_path)
+    # credentials = store.get()
+    # if not credentials or credentials.invalid:
+    #     flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+    #     flow.user_agent = APPLICATION_NAME
+    #     if flags:
+    #         credentials = tools.run_flow(flow, store, flags)
+    #     else: # Needed only for compatibility with Python 2.6
+    #         credentials = tools.run(flow, store)
+    #     print('Storing credentials to ' + credential_path)
+    # return credentials
+    #
+    # return AppAssertionCredentials(
+    # 'https://www.googleapis.com/auth/sqlservice.admin')
+    # scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
+    # FOR LOCAL
+    # home_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../')
+    #
+    # credential_path = os.path.join(home_dir, 'static/goldleagueffball-ba877da1929e.json')
+    #
+    # credentials = ServiceAccountCredentials.from_json_keyfile_name(
+    #     credential_path, scopes=SCOPES)
+
+    # FOR GAE
+    credentials = AppAssertionCredentials(SCOPES)
+
     return credentials
 
 def get_player_information_for_team(sheet_owner_name):
@@ -104,7 +122,7 @@ def get_team_information():
         for row in values:
             # row = name, price, expiration year, years remaining
             teams.append({
-                "team_name": row[0],
+                "name": row[0],
                 "cap_room": row[1].strip('$'),
                 "years_remaining": row[2],
                 "spots_available": row[3]
@@ -126,7 +144,7 @@ def get_players_dynastyfftools_cloud_safe():
 
     rangeName = "DynastyFFTools!A2:F"
     result = service.spreadsheets().values().get(
-        spreadsheetId=BIEBS_SHEET_ID, range=rangeName).execute()
+        spreadsheetId=MY_SHEET_TEMP, range=rangeName).execute()
     player_rows = result.get('values', [])
 
     return player_rows

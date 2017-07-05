@@ -5,9 +5,12 @@ class MemoryModel:
     Essentially a giant cache with helpers methods to mimic sqlalchemy model
     """
 
-    def __init__(self):
+    def __init__(self, app_data=None):
         self.Players = Players()
         self.Owners = Owners()
+
+        if app_data:
+            self.load_cache_from_dict(app_data)
 
     # INSERTIONS AND UPDATES
     def new_player_value(self, name, position, value):
@@ -88,6 +91,61 @@ class MemoryModel:
 
     def fetch_owner_by_name(self, name):
         return self.Owners._indexes["name"].get(name)
+
+    # LOAD FROM DICT
+    def load_cache_from_dict(self, app_data):
+        """
+        Kind of confusing how this has to be done because of the crazy indexing thing i set up.
+        Essentially your app_data dict should look like:
+        {
+            "players": [{
+                "name": <str>,
+                "position": <str>,
+                "value": <int>
+            }, ...],
+            "team_players": [{
+                "owner_name": <str>,
+                "player": <name>,
+                "cost": <int>,
+                "years": <int>
+            }, ...],
+            "owners": [{
+                "name": <str>,
+                "cap_room": <int>,
+                "spots_available": <int>,
+                "years_remaining": <int>
+            }, ...],
+            "redraft": [{
+                "player_name": <str>,
+                "tier": <int>,
+                "player_rank": <int>,
+                "player_bye": <int>
+            }, ...]
+        }
+        """
+        assert app_data["players"]
+        assert app_data["team_players"]
+        assert app_data["owners"]
+        assert app_data["redraft"]
+
+        for player in app_data["players"]:
+            self.new_player_value(**player)
+
+        for team_player in app_data["team_players"]:
+            player = self.fetch_player_by_name(team_player["player"])
+            if not player:
+                raise RuntimeError("Unable to load cache")
+                return
+            self.add_player_to_team(player=player,
+                                    owner_name=team_player["owner_name"],
+                                    cost=team_player["cost"],
+                                    years=team_player["years"])
+
+        for owner in app_data["owners"]:
+            self.new_owner(**owner)
+
+        for redraft_data in app_data["redraft"]:
+            self.add_redraft_data(**redraft_data)
 
 
 class Players:

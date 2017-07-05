@@ -20,6 +20,8 @@ def register_debug_routes(blueprint):
     mem_db_owner_view_func = MemDbOwners.as_view('mem_db_owners_debug')
     blueprint.add_url_rule('/debug/mem_db/owners', strict_slashes=False, view_func=mem_db_owner_view_func, methods=['GET'])
     blueprint.add_url_rule('/debug/mem_db/owners/<string:index_name>', strict_slashes=False, view_func=mem_db_owner_view_func, methods=['GET'])
+    google_sheet_conn = GoogleDocConnection.as_view('google_sheet_conn')
+    blueprint.add_url_rule('/debug/google', strict_slashes=False, view_func=google_sheet_conn, methods=['GET'])
 
 class MemDbPlayers(MethodView):
 
@@ -36,3 +38,9 @@ class MemDbOwners(MethodView):
             return mem_db.Owners.__str__()
 
         return jsonify(mem_db.Owners._indexes[index_name].keys()), 200
+
+class GoogleDocConnection(MethodView):
+
+    def get(self):
+        teams = get_team_information()
+        return jsonify(teams), 200

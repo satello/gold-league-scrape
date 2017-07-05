@@ -4,9 +4,11 @@ threadsafe: true
 
 # [START handlers]
 handlers:
-- url: /.*
-  script: start.application
-# [END handlers]
+- url: /static
+  static_dir: static
+  application_readable: true
+- url: .*
+  script : start.application
 
 env_variables:
   SELENIUM_ENABLED: false
