@@ -218,14 +218,14 @@ class Player:
         return {
             "name": self.name,
             "position": self.position,
-            "value": self.value,
+            "value": int(self.value) if self.value else None,
             "owner": self.owner,
-            "cost": self.cost,
-            "years": self.years,
-            "redraft_rank": self.redraft_rank,
-            "redraft_tier": self.redraft_tier,
-            "bye": self.bye,
-            "redraft_value": self.redraft_value
+            "cost": int(self.cost) if self.cost else None,
+            "years": int(self.years) if self.years else None,
+            "redraft_rank": int(self.redraft_rank) if self.redraft_rank else None,
+            "redraft_tier": int(self.redraft_tier) if self.redraft_tier else None,
+            "bye": int(self.bye) if self.bye else None,
+            "redraft_value": int(self.redraft_value) if self.redraft_value else None
         }
 
 
@@ -256,7 +256,7 @@ class Owner:
     def as_json(self):
         return {
             "name": self.name,
-            "cap_room": self.cap_room,
-            "years_remaining": self.years_remaining,
-            "spots_available": self.spots_available
+            "cap_room": int(self.cap_room) if self.cap_room else None,
+            "years_remaining": int(self.years_remaining) if self.years_remaining else None,
+            "spots_available": int(self.spots_available) if self.spots_available else None
         }

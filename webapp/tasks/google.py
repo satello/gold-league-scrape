@@ -9,10 +9,8 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-# from oauth2client.contrib.appengine import AppAssertionCredentials
-from oauth2client.service_account import ServiceAccountCredentials
-
-
+from oauth2client.contrib.appengine import AppAssertionCredentials
+# from oauth2client.service_account import ServiceAccountCredentials
 
 
 # If modifying these scopes, delete your previously saved credentials
@@ -78,10 +76,12 @@ def get_player_information_for_team(sheet_owner_name):
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
+    # players
     rangeName = '%s!B2:E' % sheet_owner_name
     result = service.spreadsheets().values().get(
         spreadsheetId=GOLD_LEAGUE_SHEET_ID, range=rangeName).execute()
     values = result.get('values', [])
+
 
     if not values:
         raise RuntimeError('No player data found for %s') % sheet_owner_name
