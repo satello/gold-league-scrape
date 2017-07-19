@@ -9,8 +9,8 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-from oauth2client.contrib.appengine import AppAssertionCredentials
-# from oauth2client.service_account import ServiceAccountCredentials
+# from oauth2client.contrib.appengine import AppAssertionCredentials
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 # If modifying these scopes, delete your previously saved credentials
@@ -51,15 +51,15 @@ def get_credentials():
     # scopes = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
     # FOR LOCAL
-    # home_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../')
-    #
-    # credential_path = os.path.join(home_dir, 'static/goldleagueffball-ba877da1929e.json')
-    #
-    # credentials = ServiceAccountCredentials.from_json_keyfile_name(
-    #     credential_path, scopes=SCOPES)
+    home_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../')
+
+    credential_path = os.path.join(home_dir, 'static/goldleagueffball-ba877da1929e.json')
+
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+        credential_path, scopes=SCOPES)
 
     # FOR GAE
-    credentials = AppAssertionCredentials(SCOPES)
+    # credentials = AppAssertionCredentials(SCOPES)
 
     return credentials
 
