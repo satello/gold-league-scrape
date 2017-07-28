@@ -9,3 +9,4 @@ bs4==0.0.1
 selenium==3.4.2
 google-api-python-client==1.6.2
 gunicorn==19.3.0
+dsert==0.1.3
