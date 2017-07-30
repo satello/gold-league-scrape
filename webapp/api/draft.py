@@ -5,12 +5,14 @@ from flask import request, jsonify, send_from_directory
 from flask.views import MethodView
 
 from dsert import assert_valid_dict
+from pathlib2 import Path
 
 
 def register_draft_routes(blueprint):
     draft_view_func = DraftRoutes.as_view('draft')
     blueprint.add_url_rule('/draft/<string:draft_id>/player/result', strict_slashes=False, view_func=draft_view_func, methods=['POST'])
-    # blueprint.add_url_rule('/draft/<string:draft_id>/result', strict_slashes=False, view_func=draft_view_func, methods=['GET'])
+    rollback_view_func = DraftRollback.as_view('rollback')
+    blueprint.add_url_rule('/draft/<string:draft_id>/rollback-nomination', strict_slashes=False, view_func=rollback_view_func, methods=['GET'])
 
 class DraftRoutes(MethodView):
 
@@ -38,3 +40,28 @@ class DraftRoutes(MethodView):
             return jsonify(error="error writing file"), 500
 
         return jsonify(result="success"), 201
+
+
+class DraftRollback(MethodView):
+
+    def get(self, draft_id):
+        my_file = Path('drafts/%s.csv' % draft_id)
+        if not my_file.is_file():
+            return jsonify(error="no draft with id %s found" % draft_id), 400
+
+        lines = []
+        with open('drafts/%s.csv' % draft_id, "rb") as f:
+            reader = csv.reader(f)
+            for row in reader:
+                lines.append(row)
+
+        try:
+            player = lines[-1]
+        except IndexError:
+            return jsonify({"result":"error", "error": "no player to roll back to"}), 500
+        with open('drafts/%s.csv' % draft_id, "wb") as f:
+            writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+            for line in lines[:-1]:
+                writer.writerow(line)
+
+        return jsonify({"result":"success", "player": player[0]}), 200

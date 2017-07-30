@@ -17,6 +17,6 @@ config = {
         "Desean Jackson": "DeSean Jackson",
         "Quincy Enuwa": "Quincy Enunwa",
         "Deandre Washington": "DeAndre Washington",
-        "Le'veon Bell": "Le'Veon Bell",
+        "Le'veon Bell": "Le'Veon Bell"
     }
 }
