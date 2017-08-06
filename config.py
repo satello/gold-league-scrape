@@ -21,5 +21,6 @@ config = {
         "Christian McCaffery": "Christian McCaffrey",
         "Donnell Pumphrey": "Donnel Pumphrey",
         "Juju Smith-Schuster": "JuJu Smith-Schuster",
+        "Deangelo Williams": "DeAngelo Williams"
     }
 }

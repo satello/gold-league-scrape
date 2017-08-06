@@ -91,8 +91,8 @@ if __name__ == "__main__":
                 team_players_data.append({
                     "owner_name": owner["name"],
                     "player": safe_name,
-                    "cost": player["price"],
-                    "years": player["years_remaining"]
+                    "cost": player.get("price"),
+                    "years": player.get("years_remaining")
                 })
 
         app_data["team_players"] = team_players_data

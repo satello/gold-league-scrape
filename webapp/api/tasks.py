@@ -139,8 +139,8 @@ class PlayerInfo(MethodView):
                         mem_db.add_player_to_team(cur_player, owner.name, player_info["price"], player_info["years_remaining"])
                     else:
                         cur_player.owner = owner
-                        cur_player.cost = player_info["price"]
-                        cur_player.years = player_info["years_remaining"]
+                        cur_player.cost = player_info.get("price")
+                        cur_player.years = player_info.get("years_remaining")
                         db.session.add(cur_player)
 
         if not USE_MEM_DB:

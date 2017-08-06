@@ -91,12 +91,15 @@ def get_player_information_for_team(sheet_owner_name):
             if row[0] == "Open":
                 continue
             # row = name, price, expiration year, years remaining
-            players.append({
+            player_dict = {
                 "player_name": row[0],
                 "price": row[1].strip('$'),
-                "years_remaining": row[3]
-
-            })
+            }
+            if len(row) >= 4:
+                player_dict["years_remaining"] = row[3]
+            else:
+                player_dict["years_remaining"] = None
+            players.append(player_dict)
         return players
 
 def get_team_information():

@@ -26,7 +26,7 @@ class MemoryModel:
     def new_owner(self, name, cap_room, years_remaining, spots_available):
         self.Owners._add(Owner(name=name, cap_room=cap_room, years_remaining=years_remaining, spots_available=spots_available))
 
-    def add_player_to_team(self, player, owner_name, cost, years):
+    def add_player_to_team(self, player, owner_name, cost=None, years=None):
         player.owner = owner_name
         player.cost = cost
         player.years = years
