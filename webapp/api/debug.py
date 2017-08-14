@@ -22,6 +22,8 @@ def register_debug_routes(blueprint):
     blueprint.add_url_rule('/debug/mem_db/owners/<string:index_name>', strict_slashes=False, view_func=mem_db_owner_view_func, methods=['GET'])
     google_sheet_conn = GoogleDocConnection.as_view('google_sheet_conn')
     blueprint.add_url_rule('/debug/google', strict_slashes=False, view_func=google_sheet_conn, methods=['GET'])
+    echo_view_func = Echo.as_view('echo')
+    blueprint.add_url_rule('/echo', strict_slashes=False, view_func=echo_view_func, methods=['POST'])
 
 class MemDbPlayers(MethodView):
 
@@ -44,3 +46,10 @@ class GoogleDocConnection(MethodView):
     def get(self):
         teams = get_team_information()
         return jsonify(teams), 200
+
+class Echo(MethodView):
+
+    def post(self):
+        data = request.json
+
+        return jsonify(data), 201
