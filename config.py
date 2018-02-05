@@ -22,6 +22,11 @@ config = {
         "Donnell Pumphrey": "Donnel Pumphrey",
         "Juju Smith-Schuster": "JuJu Smith-Schuster",
         "Deangelo Williams": "DeAngelo Williams",
-	"Ardarius Stewart": "ArDarius Stewart"
+	    "Ardarius Stewart": "ArDarius Stewart",
+        "J.D. McKissic": "JD McKissic",
+        "RIcky Seals-Jones": "Ricky Seals-Jones",
+        "Lesean McCoy": "LeSean McCoy",
+        "Mike GIllislee": "Mike Gillislee",
+        "C.J. Beathard": "CJ Beathard"
     }
 }

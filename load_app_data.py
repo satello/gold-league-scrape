@@ -86,7 +86,8 @@ if __name__ == "__main__":
             for player in team_players:
                 safe_name = config["name_differences"].get(player["player_name"], player["player_name"])
                 if not player_lookup.get(safe_name):
-                    raise RuntimeError("Cannot find name %s" % safe_name)
+                    # raise RuntimeError("Cannot find name %s" % safe_name)
+                    print(safe_name)
                     continue
                 team_players_data.append({
                     "owner_name": owner["name"],
