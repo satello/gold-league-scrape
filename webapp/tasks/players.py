@@ -58,21 +58,23 @@ def get_player_redraft_data(raw=False):
     raw_data = []
 
     tier = 0
-    for row in player_rows:
+    for row in player_rows[1:]:
         if row.has_key('class') and row['class'][0] == 'tier-row':
             tier += 1
             continue
 
         cols = row.find_all('td')
-        if len(cols) != 11:
+        if len(cols) != 9:
             continue
 
-        player_name = cols[1].find('a').string
+        # print(cols)
+        # print(cols[2])
+        player_name = cols[2].find('a').string
         if config["name_differences"].get(player_name):
             player_name = config["name_differences"][player_name]
 
         player_rank = cols[0].string
-        player_bye = cols[3].string
+        player_bye = cols[4].string
 
         # if you want raw data instead of inserting to db
         # FIXME split this up. confusing
