@@ -67,9 +67,8 @@ def get_player_redraft_data(raw=False):
         if len(cols) != 9:
             continue
 
-        # print(cols)
-        # print(cols[2])
-        player_name = cols[2].find('a').string
+        player_name = cols[2].find('a').find('span', {'class': 'full-name'}).string
+        print(player_name)
         if config["name_differences"].get(player_name):
             player_name = config["name_differences"][player_name]
 
