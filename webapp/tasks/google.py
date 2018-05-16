@@ -16,7 +16,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/sheets.googleapis.com-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
-CLIENT_SECRET_FILE = 'client_secret.json'
+CLIENT_SECRET_FILE = 'goldleagueffball-994848912398.json'
 APPLICATION_NAME = 'Gold League Sheet'
 GOLD_LEAGUE_SHEET_ID = '1YDb26U8rCV0ISmumHt_oa1VIEcZvEhVeC8Z9B59JoIQ'
 BIEBS_SHEET_ID = '1EA5qYoN-zeuiiyrLYYta7cGFX_zS0QFp1IpoWbozcJo'
@@ -53,7 +53,7 @@ def get_credentials():
     # FOR LOCAL
     home_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../')
 
-    credential_path = os.path.join(home_dir, 'static/goldleagueffball-ba877da1929e.json')
+    credential_path = os.path.join(home_dir, CLIENT_SECRET_FILE)
 
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
         credential_path, scopes=SCOPES)

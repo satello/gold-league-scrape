@@ -27,6 +27,7 @@ config = {
         "RIcky Seals-Jones": "Ricky Seals-Jones",
         "Lesean McCoy": "LeSean McCoy",
         "Mike GIllislee": "Mike Gillislee",
-        "C.J. Beathard": "CJ Beathard"
+        "C.J. Beathard": "CJ Beathard",
+        "Demarco Murray": "DeMarco Murray"
     }
 }
