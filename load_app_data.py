@@ -55,8 +55,8 @@ if __name__ == "__main__":
         for player_attributes in players:
             player_data.append({
                 "name": player_attributes[0],
-                "position": player_attributes[1],
-                "value": int(player_attributes[5])
+                "position": player_attributes[2],
+                "value": int(player_attributes[7])
             })
             player_lookup[player_attributes[0]] = True
 

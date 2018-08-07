@@ -145,7 +145,7 @@ def get_players_dynastyfftools_cloud_safe():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    rangeName = "DynastyFFTools!A2:F"
+    rangeName = "DynastyFFTools!A2:H"
     result = service.spreadsheets().values().get(
         spreadsheetId=MY_SHEET_TEMP, range=rangeName).execute()
     player_rows = result.get('values', [])
