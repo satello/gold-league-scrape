@@ -68,7 +68,9 @@ if __name__ == "__main__":
         for data in redraft:
             safe_name = config["name_differences"].get(data["name"], data["name"])
             if not player_lookup.get(safe_name):
-                print("skipping player %s" % safe_name)
+                position = data.get("position")
+                if position not in ["K", "TOL", "PICK", "DST"]:
+                    print("skipping player %s - %s" % (safe_name, data.get("position")))
                 continue
             redraft_data.append({
                 "player_name": safe_name,

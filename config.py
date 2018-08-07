@@ -28,6 +28,19 @@ config = {
         "Lesean McCoy": "LeSean McCoy",
         "Mike GIllislee": "Mike Gillislee",
         "C.J. Beathard": "CJ Beathard",
-        "Demarco Murray": "DeMarco Murray"
+        "Demarco Murray": "DeMarco Murray",
+        "Le'Veon Bell": "LeVeon Bell",
+        "Ronald Jones II": "Ronald Jones",
+        "D.J. Moore": "DJ Moore",
+        "Mitch Trubisky": "Mitchell Trubisky",
+        "D'Onta Foreman": "DOnta Foreman",
+        "D.J. Chark": "DJ Chark",
+        "De'Angelo Henderson": "DeAngelo Henderson",
+        "J'Mon Moore": "JMon Moore",
+        "Tre'Quan Smith": "TreQuan Smith",
+        "Equanimeous St. Brown": "Equanimeous St Brown",
+        "Nick O'Leary": "Nick OLeary",
+        "Chris Herndon IV": "Chris Herndon",
+        "D.J. Foster": "DJ Foster"
     }
 }

@@ -64,12 +64,14 @@ def get_player_redraft_data(raw=False):
             continue
 
         cols = row.find_all('td')
-        if len(cols) != 9:
+        if len(cols) != 11:
             continue
 
         player_name = cols[2].find('a').find('span', {'class': 'full-name'}).string
         if config["name_differences"].get(player_name):
             player_name = config["name_differences"][player_name]
+
+        position = ''.join([i for i in (cols[3].string) if not i.isdigit()])
 
         player_rank = cols[0].string
         player_bye = cols[4].string
@@ -79,6 +81,7 @@ def get_player_redraft_data(raw=False):
         if raw:
             raw_data.append({
                 "name": player_name,
+                "position": position,
                 "redraft_tier": tier,
                 "redraft_rank": player_rank,
                 "bye": player_bye
