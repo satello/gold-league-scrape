@@ -53,12 +53,13 @@ if __name__ == "__main__":
         player_data = []
         player_lookup = {}
         for player_attributes in players:
+            safe_name = config["name_differences"].get(player_attributes[0], player_attributes[0])
             player_data.append({
-                "name": player_attributes[0],
+                "name": safe_name,
                 "position": player_attributes[2],
                 "value": int(player_attributes[7])
             })
-            player_lookup[player_attributes[0]] = True
+            player_lookup[safe_name] = True
 
         app_data["players"] = player_data
 

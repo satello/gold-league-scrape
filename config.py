@@ -41,6 +41,8 @@ config = {
         "Equanimeous St. Brown": "Equanimeous St Brown",
         "Nick O'Leary": "Nick OLeary",
         "Chris Herndon IV": "Chris Herndon",
-        "D.J. Foster": "DJ Foster"
+        "D.J. Foster": "DJ Foster",
+        "Chris Warren": "Chris Warren III",
+        "Daesean Hamilton": "DaeSean Hamilton"
     }
 }
