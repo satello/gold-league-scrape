@@ -20,7 +20,7 @@ CLIENT_SECRET_FILE = 'goldleagueffball-994848912398.json'
 APPLICATION_NAME = 'Gold League Sheet'
 GOLD_LEAGUE_SHEET_ID = '1YDb26U8rCV0ISmumHt_oa1VIEcZvEhVeC8Z9B59JoIQ'
 BIEBS_SHEET_ID = '1EA5qYoN-zeuiiyrLYYta7cGFX_zS0QFp1IpoWbozcJo'
-MY_SHEET_TEMP = '1Fj1z0A3LmAamKtqTnAzMFc-fCbzJCDRCGR2Hn8wcOoc'
+MY_SHEET_TEMP = '19YvN6ac_2VEsdumylgsBd4hi_YTmeBUIi6s0hmSV3RA'
 
 def get_credentials():
     """Gets valid user credentials from storage.
@@ -145,9 +145,10 @@ def get_players_dynastyfftools_cloud_safe():
     service = discovery.build('sheets', 'v4', http=http,
                               discoveryServiceUrl=discoveryUrl)
 
-    rangeName = "DynastyFFTools!A2:H"
+    rangeName = "1QB!A3:J"
     result = service.spreadsheets().values().get(
         spreadsheetId=MY_SHEET_TEMP, range=rangeName).execute()
+
     player_rows = result.get('values', [])
 
     return player_rows

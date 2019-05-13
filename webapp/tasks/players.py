@@ -56,15 +56,20 @@ def get_player_redraft_data(raw=False):
 
     player_rows = soup.find('tbody').find_all('tr')
     raw_data = []
-
+    # print(player_rows[2])
     tier = 0
+    first = True
     for row in player_rows[1:]:
         if row.has_key('class') and row['class'][0] == 'tier-row':
             tier += 1
             continue
 
         cols = row.find_all('td')
-        if len(cols) != 11:
+        if first:
+            print(len(cols))
+            print(cols)
+            first = False
+        if len(cols) != 9:
             continue
 
         player_name = cols[2].find('a').find('span', {'class': 'full-name'}).string

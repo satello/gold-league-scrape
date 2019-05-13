@@ -56,8 +56,8 @@ if __name__ == "__main__":
             safe_name = config["name_differences"].get(player_attributes[0], player_attributes[0])
             player_data.append({
                 "name": safe_name,
-                "position": player_attributes[2],
-                "value": int(player_attributes[7])
+                "position": player_attributes[1],
+                "value": int(player_attributes[6])
             })
             player_lookup[safe_name] = True
 

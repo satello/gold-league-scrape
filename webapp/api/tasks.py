@@ -44,7 +44,7 @@ class PlayerValues(MethodView):
         for player_attributes in players:
             name = player_attributes[0]
             position = player_attributes[1]
-            value = int(player_attributes[5])
+            value = int(player_attributes[6])
 
             if USE_MEM_DB:
                 mem_db.new_player_value(name, position, value)
