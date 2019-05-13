@@ -43,6 +43,12 @@ config = {
         "Chris Herndon IV": "Chris Herndon",
         "D.J. Foster": "DJ Foster",
         "Chris Warren": "Chris Warren III",
-        "Daesean Hamilton": "DaeSean Hamilton"
+        "Daesean Hamilton": "DaeSean Hamilton",
+        "N'Keal Harry": "NKeal Harry",
+        "D.K. Metcalf": "DK Metcalf",
+        "A.J. Brown": "AJ Brown",
+        "T.J. Hockenson": "TJ Hockenson",
+        "J.J. Arcega-Whiteside": "JJ Arcega-Whiteside",
+        "C.J. Uzomah": "CJ Uzomah"
     }
 }

@@ -65,6 +65,7 @@ if __name__ == "__main__":
 
         # load redraft data
         redraft = get_player_redraft_data(raw=True)
+
         redraft_data = []
         for data in redraft:
             safe_name = config["name_differences"].get(data["name"], data["name"])
