@@ -34,7 +34,11 @@ class MemoryModel:
         if not self.Players._indexes["owner"].get(player.owner):
             self.Players._indexes["owner"][player.owner] = []
         insort_right(self.Players._indexes["owner"][player.owner], player)
-        self.Players._indexes["owner"][None].remove(player)
+        try:
+            self.Players._indexes["owner"][None].remove(player)
+        except:
+            print(player.name)
+            pass
 
     def remove_player_from_team(self, player, owner_name):
         remove_player.owner = None
