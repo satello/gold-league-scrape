@@ -1,4 +1,5 @@
 import os
+import random
 
 from flask import request, jsonify
 from flask.views import MethodView
@@ -23,6 +24,10 @@ def register_teams_routes(blueprint):
 class TeamRoutes(MethodView):
 
     def get(self, owner_name=None):
+        shuffle = request.args.get('shuffle', False)
+        print(request.query_string)
+        print(shuffle)
+
         if owner_name:
             if USE_MEM_DB:
                 team = mem_db.fetch_owner_by_name(owner_name)
@@ -37,7 +42,12 @@ class TeamRoutes(MethodView):
         else:
             teams = Owners.query.all()
 
-        return jsonify([team.as_json() for team in teams]), 200
+        teams = [team.as_json() for team in teams]
+        # Randomize teams
+        if shuffle:
+            random.shuffle(teams)
+
+        return jsonify(teams), 200
 #
 #
 # class TeamValues(MethodView):
