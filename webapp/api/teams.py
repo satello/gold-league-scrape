@@ -25,8 +25,6 @@ class TeamRoutes(MethodView):
 
     def get(self, owner_name=None):
         shuffle = request.args.get('shuffle', False)
-        print(request.query_string)
-        print(shuffle)
 
         if owner_name:
             if USE_MEM_DB:

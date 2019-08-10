@@ -49,6 +49,12 @@ config = {
         "A.J. Brown": "AJ Brown",
         "T.J. Hockenson": "TJ Hockenson",
         "J.J. Arcega-Whiteside": "JJ Arcega-Whiteside",
-        "C.J. Uzomah": "CJ Uzomah"
+        "C.J. Uzomah": "CJ Uzomah",
+        "Benny Snell Jr.": "Benny Snell",
+        "Irv Smith Jr.": "Irv Smith",
+        "Jeff Wilson": "Jeffery Wilson",
+        "James O'Shaughnessy": "James OShaughnessy",
+        "Gregory Howell": "Buddy Howell",
+        "Alex Armah": "Alexander Armah"
     }
 }
