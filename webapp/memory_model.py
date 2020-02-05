@@ -130,7 +130,8 @@ class MemoryModel:
         assert app_data["players"]
         assert app_data["team_players"]
         assert app_data["owners"]
-        assert app_data["redraft"]
+        if not app_data.get("redraft"):
+            app_data["redraft"] = []
 
         for player in app_data["players"]:
             self.new_player_value(**player)
