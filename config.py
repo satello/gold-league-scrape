@@ -55,6 +55,8 @@ config = {
         "Jeff Wilson": "Jeffery Wilson",
         "James O'Shaughnessy": "James OShaughnessy",
         "Gregory Howell": "Buddy Howell",
-        "Alex Armah": "Alexander Armah"
+        "Alex Armah": "Alexander Armah",
+        "Mark Ingram II": "Mark Ingram",
+        "Gardner Minshew II": "Gardner Minshew"
     }
 }
