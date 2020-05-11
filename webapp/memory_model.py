@@ -59,7 +59,10 @@ class MemoryModel:
 
         # map dyno value to redraft
         # _players should be sorted so this should be chill
-        value = self.Players._players[(int(player_rank)-1)].value
+        try:
+            value = self.Players._players[(int(player_rank)-1)].value
+        except:
+            value = 0
         if value:
             existing_player.redraft_value = value
 
