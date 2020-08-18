@@ -68,7 +68,7 @@ def get_player_redraft_data(raw=False):
         if first:
             print(len(cols))
             first = False
-        if len(cols) != 9:
+        if len(cols) != 11:
             continue
 
         player_name = cols[2].find('a').find('span', {'class': 'full-name'}).string
