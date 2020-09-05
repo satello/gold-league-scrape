@@ -57,6 +57,8 @@ config = {
         "Gregory Howell": "Buddy Howell",
         "Alex Armah": "Alexander Armah",
         "Mark Ingram II": "Mark Ingram",
-        "Gardner Minshew II": "Gardner Minshew"
+        "Gardner Minshew II": "Gardner Minshew",
+        "Laviska Shenault": "Laviska Shenault Jr.",
+        "K.J. Hamler": "KJ Hamler",
     }
 }
