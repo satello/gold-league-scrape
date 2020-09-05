@@ -61,5 +61,6 @@ config = {
         "Laviska Shenault": "Laviska Shenault Jr.",
         "K.J. Hamler": "KJ Hamler",
         "Le'veon Bell": "LeVeon Bell",
+        "La'Mical Perine": "Lamical Perine",
     }
 }
